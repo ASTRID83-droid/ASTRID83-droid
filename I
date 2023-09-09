@@ -1,0 +1,57 @@
+import random
+
+# Conceptos Incaicos
+conceptos_incaicos = {
+    "El Ayni": "ayuda mutua o apoyo recíproco entre las familias.",
+    "La Minka": "trabajo comunitario o cooperativa con fines sociales.",
+    "La Mita": "contribución laboral en beneficio del estado durante un tiempo corto.",
+    "La Redistribución": "garantizaba la asignación de excedentes en caso de necesidad desde el estado hacia las comunidades.",
+    "Técnicas Agrícolas - Los Andenes": "aumentan el suelo agrícola, frenan la erosión, retienen la humedad, forman microclimas, aprovechan el agua."
+}
+
+# Puntuación del jugador
+puntuacion = 0
+
+# Función para presentar una situación y obtener la respuesta del jugador
+def presentar_situacion():
+    concepto, descripcion = random.choice(list(conceptos_incaicos.items()))
+    print(f"Situación: Tu comunidad necesita aplicar el concepto incaico de '{concepto}' para resolver un problema.")
+    print(f"¿Cuál es la mejor manera de aplicarlo?\n")
+    
+    opciones = list(conceptos_incaicos.keys())
+    opciones.remove(concepto)
+    opciones = random.sample(opciones, 3)
+    opciones.append(concepto)
+    random.shuffle(opciones)
+    
+    for i, opcion in enumerate(opciones):
+        print(f"{i + 1}) {opcion}")
+    
+    respuesta_correcta = opciones.index(concepto) + 1
+    
+    try:
+        respuesta = int(input("\nIngresa el número de la respuesta correcta: "))
+        if respuesta == respuesta_correcta:
+            print("\n¡Respuesta correcta!")
+            return True
+        else:
+            print("\nRespuesta incorrecta. La respuesta correcta era la opción", respuesta_correcta)
+            return False
+    except ValueError:
+        print("\nIngresa un número válido.")
+        return False
+
+# Juego
+print("¡Bienvenido a Aventura Incaica!\n")
+print("Tu objetivo es aprender sobre los conceptos incaicos mientras tomas decisiones en situaciones de la época incaica.")
+print("¡Comencemos!\n")
+
+while True:
+    if presentar_situacion():
+        puntuacion += 1
+    print(f"\nPuntuación actual: {puntuacion}\n")
+    continuar = input("¿Deseas continuar? (s/n): ").lower()
+    if continuar != 's':
+        break
+
+print(f"\n¡Gracias por jugar! Tu puntuación final es: {puntuacion}")
